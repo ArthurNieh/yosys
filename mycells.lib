@@ -55,12 +55,30 @@ library(demo) {
   }
   cell(dff) {
     area: 9;
-    ff(IQ, IQN) { clocked_on: C;
-                  next_state: D; }
-    pin(C) { direction: input;
-                 clock: true; }
-    pin(D) { direction: input; }
-    pin(Q) { direction: output;
-              function: "IQ"; }
+
+    ff(IQ, IQN) {
+      clocked_on: "CK";
+      next_state: "D";
+      clear: "!RN";  // Asynchronous reset (active-low)
+      preset: "!SN"; // Asynchronous set (active-low)
+    }
+    pin(RN) {
+      direction: input;
+    }
+    pin(SN) {
+      direction: input;
+    }
+    pin(CK) {
+      direction: input;
+      clock: true;
+    }
+    pin(D) {
+      direction: input;
+    }
+    pin(Q) {
+      direction: output;
+      function: "IQ";
+    }
   }
+
 }
